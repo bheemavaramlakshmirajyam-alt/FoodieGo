@@ -3,7 +3,7 @@
 const MenuItem = require("../models/MenuItem");
 const Restaurant = require("../models/Restaurant");
 
-// CREATE MENU ITEM
+
 const createMenuItem = async (req, res) => {
     try {
         const restaurant = await Restaurant.findById(
@@ -29,7 +29,7 @@ const createMenuItem = async (req, res) => {
     }
 };
 
-// GET ALL MENU ITEMS
+
 const getMenuItems = async (req, res) => {
     try {
         const menuItems = await MenuItem.find()
@@ -45,7 +45,7 @@ const getMenuItems = async (req, res) => {
         });
     }
     try {
-        // 1. Filtering
+        
         const filter = {};
 
         if (req.query.category) {
@@ -72,7 +72,7 @@ const getMenuItems = async (req, res) => {
             }
         }
 
-        // 2. Sorting
+    
         const allowedSortFields = ["price", "name"];
 
         const sortBy = allowedSortFields.includes(req.query.sort)
@@ -81,7 +81,7 @@ const getMenuItems = async (req, res) => {
 
         const order = req.query.order === "desc" ? -1 : 1;
 
-        // 3. Pagination
+        
         const page = Math.max(parseInt(req.query.page) || 1, 1);
         const limit = Math.min(
             Math.max(parseInt(req.query.limit) || 5, 1),
@@ -90,7 +90,7 @@ const getMenuItems = async (req, res) => {
 
         const skip = (page - 1) * limit;
 
-        // Fetch data
+        
         const menuItems = await MenuItem.find(filter)
             .sort({ [sortBy]: order })
             .skip(skip)
@@ -115,7 +115,7 @@ const getMenuItems = async (req, res) => {
 
 };
 
-// GET MENU ITEM BY ID
+
 const getMenuItemById = async (req, res) => {
     try {
         const menuItem = await MenuItem.findById(req.params.id)
@@ -137,7 +137,7 @@ const getMenuItemById = async (req, res) => {
     }
 };
 
-// UPDATE MENU ITEM
+
 const updateMenuItem = async (req, res) => {
     try {
         const menuItem = await MenuItem.findByIdAndUpdate(
@@ -163,7 +163,7 @@ const updateMenuItem = async (req, res) => {
     }
 };
 
-// DELETE MENU ITEM
+
 const deleteMenuItem = async (req, res) => {
     try {
         const menuItem = await MenuItem.findByIdAndDelete(
